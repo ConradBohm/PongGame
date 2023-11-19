@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgyl60ln0cix"]
+
+[ext_resource type="Script" path="res://scenes/level/level.gd" id="1_0ym06"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_0ym06")
+
+[node name="SpawnLocations" type="Node2D" parent="."]
+
+[node name="Player1Spawn" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(109, 316)
+
+[node name="Player2Spawn" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(1044, 329)
+
+[node name="Paddles" type="Node2D" parent="."]
