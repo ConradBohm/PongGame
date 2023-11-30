@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgyl60ln0cix"]
+
+[ext_resource type="Script" path="res://scenes/level/level.gd" id="1_0ym06"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6tkr5"]
+size = Vector2(1152, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_77108"]
+size = Vector2(73, 866)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_el51u"]
+size = Vector2(90, 884)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_0ym06")
+
+[node name="Paddles" type="Node2D" parent="."]
+
+[node name="Walls" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
+collision_layer = 2
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D"]
+position = Vector2(576, -10)
+shape = SubResource("RectangleShape2D_6tkr5")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Walls"]
+collision_layer = 2
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D2"]
+position = Vector2(577, 659)
+shape = SubResource("RectangleShape2D_6tkr5")
+
+[node name="Goals" type="Node2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="Goals"]
+position = Vector2(1260, 343)
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goals/Area2D"]
+position = Vector2(-45, 8)
+shape = SubResource("RectangleShape2D_77108")
+
+[node name="Area2D2" type="Area2D" parent="Goals"]
+position = Vector2(-91, 287)
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goals/Area2D2"]
+position = Vector2(12, 47)
+shape = SubResource("RectangleShape2D_el51u")
+
+[node name="SpawnLocations" type="Node2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Player1Spawn" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(109, 316)
+
+[node name="Player2Spawn" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(1044, 329)
+
+[node name="BallSpawn" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(572, 318)

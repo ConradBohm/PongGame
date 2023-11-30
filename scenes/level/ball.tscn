@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://qf4utxlf86fq"]
+
+[ext_resource type="Texture2D" uid="uid://dyq63q0euv4w6" path="res://resources/Tiles/Characters/tile_0008.png" id="1_4m1ns"]
+[ext_resource type="Script" path="res://scenes/level/ball.gd" id="1_u2irr"]
+[ext_resource type="AudioStream" uid="uid://e65xfsg3tqjx" path="res://resources/audio/collision.mp3" id="3_8ltsa"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_l5r3m"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iejhj"]
+
+[node name="Ball" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 7
+physics_material_override = SubResource("PhysicsMaterial_l5r3m")
+gravity_scale = 0.0
+max_contacts_reported = 10
+contact_monitor = true
+can_sleep = false
+lock_rotation = true
+linear_damp_mode = 1
+angular_damp_mode = 1
+script = ExtResource("1_u2irr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_4m1ns")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_iejhj")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="CollisionSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_8ltsa")
+
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

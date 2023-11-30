@@ -1,18 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://bmg0a6omti06x"]
+[gd_scene load_steps=3 format=3 uid="uid://bmg0a6omti06x"]
 
 [ext_resource type="Texture2D" uid="uid://crxx5p5rgms0f" path="res://resources/Tiles/tile_0089.png" id="1_c28vn"]
 [ext_resource type="Script" path="res://scenes/paddle/paddle.gd" id="1_kcb3e"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lv3bn"]
-size = Vector2(6, 18)
-
 [node name="Paddle" type="CharacterBody2D"]
 scale = Vector2(5, 5)
-collision_mask = 10
+collision_mask = 2
+motion_mode = 1
+slide_on_ceiling = false
+platform_on_leave = 2
 script = ExtResource("1_kcb3e")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_c28vn")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_lv3bn")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(3, 0, 3, -2.4, 2.8, -6.2, 2.4, -8.4, 2, -8.8, 1.4, -9, -3, -9, -3, 9, 1.2, 9, 1.8, 8.6, 2.4, 8, 2.8, 6, 3, 2.4)

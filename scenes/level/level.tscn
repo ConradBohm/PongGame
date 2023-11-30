@@ -1,11 +1,93 @@
-[gd_scene load_steps=2 format=3 uid="uid://cgyl60ln0cix"]
+[gd_scene load_steps=7 format=3 uid="uid://cgyl60ln0cix"]
 
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1_0ym06"]
+[ext_resource type="PackedScene" uid="uid://b0ur6xwdqfbtk" path="res://scenes/user_interface/ui.tscn" id="2_avb0t"]
+[ext_resource type="Texture2D" uid="uid://c7xh6k70vu4tc" path="res://resources/Tiles/tile_0038.png" id="2_ypoea"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6tkr5"]
+size = Vector2(1155.5, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_77108"]
+size = Vector2(73, 866)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_el51u"]
+size = Vector2(90, 884)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_0ym06")
 
+[node name="Walls" type="Node2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls"]
+modulate = Color(0.619608, 0.733333, 0.619608, 1)
+position = Vector2(574.5, 330.5)
+scale = Vector2(64.8333, 37.7222)
+texture = ExtResource("2_ypoea")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
+position = Vector2(2, 8)
+collision_layer = 2
+collision_mask = 9
+
+[node name="Sprite2D3" type="Sprite2D" parent="Walls/StaticBody2D"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(570, -10)
+scale = Vector2(64.5556, 1.11111)
+texture = ExtResource("2_ypoea")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D"]
+position = Vector2(570.5, -10)
+shape = SubResource("RectangleShape2D_6tkr5")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, -9)
+collision_layer = 2
+collision_mask = 9
+
+[node name="Sprite2D2" type="Sprite2D" parent="Walls/StaticBody2D2"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(575.75, 660)
+scale = Vector2(64.1944, 1.11111)
+texture = ExtResource("2_ypoea")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D2"]
+position = Vector2(575.75, 660)
+shape = SubResource("RectangleShape2D_6tkr5")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Walls"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(575, 301)
+rotation = 1.5708
+scale = Vector2(63.9444, 1.11111)
+texture = ExtResource("2_ypoea")
+
+[node name="Goals" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="RightGoal" type="Area2D" parent="Goals"]
+position = Vector2(1237, 340)
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goals/RightGoal"]
+position = Vector2(-45, 8)
+shape = SubResource("RectangleShape2D_77108")
+
+[node name="LeftGoal" type="Area2D" parent="Goals"]
+position = Vector2(-91, 287)
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goals/LeftGoal"]
+position = Vector2(39, 47)
+shape = SubResource("RectangleShape2D_el51u")
+
 [node name="SpawnLocations" type="Node2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="Player1Spawn" type="Marker2D" parent="SpawnLocations"]
 position = Vector2(109, 316)
@@ -13,4 +95,16 @@ position = Vector2(109, 316)
 [node name="Player2Spawn" type="Marker2D" parent="SpawnLocations"]
 position = Vector2(1044, 329)
 
-[node name="Paddles" type="Node2D" parent="."]
+[node name="BallSpawn" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(572, 318)
+
+[node name="Units" type="Node2D" parent="."]
+
+[node name="UI" parent="." instance=ExtResource("2_avb0t")]
+
+[connection signal="body_entered" from="Goals/RightGoal" to="." method="_on_right_goal_body_entered"]
+[connection signal="body_entered" from="Goals/LeftGoal" to="." method="_on_left_goal_body_entered"]
+[connection signal="game_quit" from="UI" to="." method="_on_ui_game_quit"]
+[connection signal="game_started" from="UI" to="." method="_on_ui_game_started"]
+[connection signal="p1_cpu" from="UI" to="." method="_on_ui_p_1_cpu"]
+[connection signal="p2_cpu" from="UI" to="." method="_on_ui_p_2_cpu"]
